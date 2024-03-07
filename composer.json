@@ -1,0 +1,45 @@
+{
+    "name": "cloudgrayau/cleantalk",
+    "description": "CleanTalk Anti-Spam for Craft CMS",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "cleantalk",
+        "anti-spam"
+    ],
+    "support": {
+        "docs": "https://github.com/cloudgrayau/cleantalk",
+        "issues": "https://github.com/cloudgrayau/cleantalk/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cloud Gray Pty Ltd",
+            "homepage": "https://cloudgray.com.au/"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^4.0|^5.0",
+        "php": "^8.0|^8.2",
+        "guzzlehttp/guzzle": "^7.0",
+        "cloudgrayau/utils": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+          "cloudgrayau\\cleantalk\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "CleanTalk",
+        "handle": "cleantalk",
+        "developer": "Cloud Gray Pty Ltd",
+        "developerUrl": "https://cloudgray.com.au/",
+        "documentationUrl": "https://github.com/cloudgrayau/cleantalk/blob/craft4/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/cloudgrayau/cleantalk/craft4/CHANGELOG.md",
+        "class": "cloudgrayau\\cleantalk\\Cleantalk"
+    }
+}

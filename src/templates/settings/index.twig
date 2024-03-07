@@ -1,0 +1,33 @@
+{% extends "_layouts/cp" %}
+{% set title = 'CleanTalk Anti-Spam' %}
+
+{% requireAdmin %}
+
+{% do view.registerAssetBundle("cloudgrayau\\utils\\assetbundles\\CloudGrayAsset") %}
+
+{% set crumbs = [
+  { label: 'Settings'|t('app'), url: url('settings') },
+  { label: 'Plugins'|t('app'), url: url('settings/plugins') }
+] %}
+
+{% set fullPageForm = true %}
+{% set tabs = {
+  "settings": {label: "Settings", url: "#settings"},
+} %}
+
+{% block content %}
+
+    <input type="hidden" name="action" value="plugins/save-plugin-settings">
+    <input type="hidden" name="pluginHandle" value="cleantalk">
+
+    {{ redirectInput("cleantalk/settings") }}
+
+    {# -- General settings -- #}
+    {% include "cleantalk/settings/_includes/settings" %}
+    
+    {# -- Firewall settings -- #}
+    {% include "cleantalk/settings/_includes/firewall" %}
+    
+    {% include 'cloudgrayau-utils/footer' %}
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% import "_includes/forms" as forms %}
+{% import 'cloudgrayau-utils/_macros' as macros %}
+<div id="settings">
+    {% namespace "settings" %}
+    
+    {{ forms.textField({
+        label: "API Key",
+        instructions: "The [CleanTalk](https://cleantalk.org/) service API key."|md,
+        name: 'apiKey',
+        value: settings['apiKey'],
+        type: 'text',
+        errors: settings.getErrors('apiKey'),
+        warning: macros.configWarning('apiKey', 'cleantalk')
+    }) }}
+    
+    {{ forms.lightswitchField({
+        label: "Enable Bot Detector",
+        instructions: "Enable additional bot detector offering greater protection for spam.",
+        hints: "test",
+        name: 'enableBotDetector',
+        on: settings.enableBotDetector,
+        warning: macros.configWarning('enableBotDetector', 'cleantalk')
+    }) }}
+    
+    {{ forms.lightswitchField({
+        label: "Enable User Registration Protection",
+        instructions: "Protect user registrations from spam.",
+        name: 'enableUserRegistration',
+        on: settings.enableUserRegistration,
+        warning: macros.configWarning('enableUserRegistration', 'cleantalk')
+    }) }}
+    
+    <hr />
+    <h3>Form Protection</h3>
+    
+    {{ forms.lightswitchField({
+        label: "Enable Form Protection"|t,
+        name: 'enableForms',
+        on: settings.enableForms,
+        warning: macros.configWarning('enableForms', 'cleantalk')
+    }) }}
+    
+    <p>The current form plugins/systems are protected:</p>
+    <p>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.13 15.19" fill="currentColor" style="width: 20px; display: inline;margin-right:5px;"><path d="M19.41 0 7.55 11.86 1.72 6.02 0 7.74l7.37 7.37.08.08h.21L21.13 1.72 19.41 0z" style="stroke-width:0"></path></svg> <strong>Formie</strong> - <a href="https://plugins.craftcms.com/formie" target="_blank">https://plugins.craftcms.com/formie</a><br />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.13 15.19" fill="currentColor" style="width: 20px; display: inline;margin-right:5px;"><path d="M19.41 0 7.55 11.86 1.72 6.02 0 7.74l7.37 7.37.08.08h.21L21.13 1.72 19.41 0z" style="stroke-width:0"></path></svg> <strong>Freeform</strong> - <a href="https://plugins.craftcms.com/freeform" target="_blank">https://plugins.craftcms.com/freeform</a><br />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.13 15.19" fill="currentColor" style="width: 20px; display: inline;margin-right:5px;"><path d="M19.41 0 7.55 11.86 1.72 6.02 0 7.74l7.37 7.37.08.08h.21L21.13 1.72 19.41 0z" style="stroke-width:0"></path></svg> <strong>Express Forms</strong> - <a href="https://plugins.craftcms.com/express-forms" target="_blank">https://plugins.craftcms.com/express-forms</a><br />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.13 15.19" fill="currentColor" style="width: 20px; display: inline;margin-right:5px;"><path d="M19.41 0 7.55 11.86 1.72 6.02 0 7.74l7.37 7.37.08.08h.21L21.13 1.72 19.41 0z" style="stroke-width:0"></path></svg> <strong>Contact Form</strong> - <a href="https://plugins.craftcms.com/contact-form" target="_blank">https://plugins.craftcms.com/contact-form</a><br />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.13 15.19" fill="currentColor" style="width: 20px; display: inline;margin-right:5px;"><path d="M19.41 0 7.55 11.86 1.72 6.02 0 7.74l7.37 7.37.08.08h.21L21.13 1.72 19.41 0z" style="stroke-width:0"></path></svg> <strong>Custom Forms</strong> - <em>requires additional programming</em><br />
+    </p>
+    
+    <hr />
+    <h3>Comment Protection</h3>
+    
+    {{ forms.lightswitchField({
+        label: "Enable Comment Protection",
+        name: 'enableComments',
+        on: settings.enableComments,
+        warning: macros.configWarning('enableComments', 'cleantalk')
+    }) }}
+    
+    <p>The current comment plugins/systems are protected:</p>
+    <p>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.13 15.19" fill="currentColor" style="width: 20px; display: inline;margin-right:5px;"><path d="M19.41 0 7.55 11.86 1.72 6.02 0 7.74l7.37 7.37.08.08h.21L21.13 1.72 19.41 0z" style="stroke-width:0"></path></svg> <strong>Comments</strong> - <a href="https://plugins.craftcms.com/comments" target="_blank">https://plugins.craftcms.com/comments</a><br />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21.13 15.19" fill="currentColor" style="width: 20px; display: inline;margin-right:5px;"><path d="M19.41 0 7.55 11.86 1.72 6.02 0 7.74l7.37 7.37.08.08h.21L21.13 1.72 19.41 0z" style="stroke-width:0"></path></svg> <strong>Custom Comments</strong> - <em>requires additional programming</em><br />
+    </p>
+    {% endnamespace %}
+</div>

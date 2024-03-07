@@ -1,0 +1,15 @@
+{% import "_includes/forms" as forms %}
+{% import 'cloudgrayau-utils/_macros' as macros %}
+<div id="firewall" class="hidden">
+    {% namespace "settings" %}
+    
+    {{ forms.lightswitchField({
+        label: "Enable Firewall"|t,
+        instructions: "Enable the CleanTalk firewall.",
+        name: 'enableFirewall',
+        on: settings.enableFirewall,
+        warning: macros.configWarning('enableFirewall', 'cleantalk')
+    }) }}
+    
+    {% endnamespace %}
+</div>
