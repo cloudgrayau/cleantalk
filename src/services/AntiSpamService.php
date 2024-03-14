@@ -227,7 +227,7 @@ class AntiSpamService extends Component {
       $dateTime = new \DateTime('now', new \DateTimeZone('Etc/GMT'));
       $params['submit_time'] = intval($dateTime->format('U') - (int)$_POST['ctv_']);
     } else {
-      $params['js_on'] = 0;
+      $params['js_on'] = $arg['js'] ?? 0;
     }
     return $this->ctRequest($params);
   }
@@ -255,7 +255,7 @@ class AntiSpamService extends Component {
       $dateTime = new \DateTime('now', new \DateTimeZone('Etc/GMT'));
       $params['submit_time'] = intval($dateTime->format('U') - (int)$_POST['ctv_']);
     } else {
-      $params['js_on'] = 0;
+      $params['js_on'] = $arg['js'] ?? 0;
     }
     return $this->ctRequest($params);
   }
