@@ -14,7 +14,9 @@ This plugin requires Craft CMS 4.0.0 or later.
 
 ## CleanTalk Overview
 
-CleanTalk is an anti-spam utility for protecting forms, user registrations and comments in Craft CMS. A valid API key from the [CleanTalk Service](https://cleantalk.org/) is required to use this plugin.
+CleanTalk is an anti-spam utility for protecting forms, user registrations and comments in Craft CMS.
+
+A valid API key from the [CleanTalk Service](https://cleantalk.org/) is required to use this plugin.
 
 ## Protection
 
