@@ -128,7 +128,6 @@ class AntiSpamService extends Component {
           'email' => $submission['fromEmail'] ?? '',
           'name' => $submission['fromName'] ?? '',
           'phone' => $submission['phone'] ?? '',
-          'subject' => $submission['subject'] ?? '',
           'message' => $submission['message'] ?? ''
         );
         if (isset($_POST['ct_bot_detector_event_token'])){

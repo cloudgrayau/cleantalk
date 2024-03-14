@@ -62,13 +62,13 @@ class Cleantalk extends Plugin {
     UtilityHelper::registerModule();
   }
   
-  private function _registerInit(): void { 
-    Craft::$app->on(Application::EVENT_INIT, function() {
+  private function _registerInit(): void {    
+    Craft::$app->on(Application::EVENT_INIT, function() {      
       if (Craft::$app->getRequest()->getIsCpRequest()){$this->_registerCpUrlRules();}
       if (!$this->settings->apiKey){
         return;
       }
-      if ($this->settings->enableUserRegistration){$this->antiSpam->initRegistration();}
+      if ($this->settings->enableUserRegistration && Craft::$app->getEdition()){$this->antiSpam->initRegistration();}
       if (Craft::$app->getRequest()->getIsCpRequest()){
         return;
       }
@@ -77,7 +77,7 @@ class Cleantalk extends Plugin {
       if ($this->settings->enableComments){$this->antiSpam->initComments();}
     });
     Event::on(View::class, View::EVENT_BEFORE_RENDER_PAGE_TEMPLATE, function (\craft\events\TemplateEvent $event) {
-      if (Craft::$app->getRequest()->getIsSiteRequest() || Craft::$app->getRequest()->getIsCpRequest()){
+      if (Craft::$app->getRequest()->getIsSiteRequest() || (Craft::$app->getRequest()->getIsCpRequest() && Craft::$app->getEdition())){
         $view = Craft::$app->getView();
         $view->registerAssetBundle(CleantalkAsset::class);
       }
