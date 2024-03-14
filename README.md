@@ -49,7 +49,7 @@ Coming soon in a later release.
 
 ## Custom Protection
 
-Any custom form or comment logic can be protected by CleanTalk.
+Any form or comment logic can be protected by CleanTalk via a custom plugin/module controller.
 
     <?php    
     $params = array(
