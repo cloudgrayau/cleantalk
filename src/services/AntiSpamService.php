@@ -115,12 +115,12 @@ class AntiSpamService extends Component {
         }
       });
     }
-    if (Craft::$app->plugins->isPluginEnabled('wheelform')){
+    /*if (Craft::$app->plugins->isPluginEnabled('wheelform')){
       Event::on(\wheelform\controllers\MessageController::class, \wheelform\controllers\MessageController::EVENT_BEFORE_SAVE, function($e){
-        /*$e->sender->returnModel()->save_entry = false;
-        $e->sender->returnModel()->send_email = false;*/
+        $e->sender->returnModel()->save_entry = false;
+        $e->sender->returnModel()->send_email = false;
       });  
-    }
+    }*/
     if (Craft::$app->plugins->isPluginEnabled('contact-form')){
       Event::on(\craft\contactform\Mailer::class, \craft\contactform\Mailer::EVENT_BEFORE_SEND, function(\craft\contactform\events\SendEvent $e){
         $submission = $e->submission;
