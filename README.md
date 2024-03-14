@@ -28,18 +28,18 @@ Protects user registrations from spam.
 
 Protects form submissions from spam. The current form plugins/systems are automatically protected:
 
-**Formie** - [https://plugins.craftcms.com/formie](https://plugins.craftcms.com/formie) 
-**Freeform** - [https://plugins.craftcms.com/freeform](https://plugins.craftcms.com/freeform) 
-**Express Forms** - [https://plugins.craftcms.com/express-forms](https://plugins.craftcms.com/express-forms) 
-**Contact Form** - [https://plugins.craftcms.com/contact-form](https://plugins.craftcms.com/contact-form) 
-**Custom Forms** - requires additional programming
+**✓ Formie** - [https://plugins.craftcms.com/formie](https://plugins.craftcms.com/formie)  
+**✓ Freeform** - [https://plugins.craftcms.com/freeform](https://plugins.craftcms.com/freeform)  
+**✓ Express Forms** - [https://plugins.craftcms.com/express-forms](https://plugins.craftcms.com/express-forms)  
+**✓ Contact Form** - [https://plugins.craftcms.com/contact-form](https://plugins.craftcms.com/contact-form)  
+**✓ Custom Forms** - requires additional programming
 
 ### Comment Protection
 
 Protects comment submissions from spam. The current comment plugins/systems are automatically protected:
 
-**Comments** - [https://plugins.craftcms.com/comments](https://plugins.craftcms.com/comments) 
-**Custom Comments** - requires additional programming
+**✓ Comments** - [https://plugins.craftcms.com/comments](https://plugins.craftcms.com/comments)  
+**✓ Custom Comments** - requires additional programming
 
 ### Firewall Protection
 
