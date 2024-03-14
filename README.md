@@ -18,7 +18,7 @@ CleanTalk is an anti-spam utility for protecting forms, user registrations and c
 
 ## Protection
 
-The CleanTalk plugin protects the following services from spam and includes an option bot detector script that offers greater spam detection.
+The CleanTalk plugin protects the following services from spam and includes an optional bot detector script that offers greater spam detection.
 
 ### User Registration Protection
 
@@ -56,15 +56,9 @@ Any custom form or comment logic can be protected by CleanTalk.
       'phone' => '<PHONE>',
       'message' => '<MESSAGE>'
     );
-    if (\cloudgrayau\cleantalk\Cleantalk::checkForm($params)){
-    
-      /* passed */
-      
-    } else {
-    
-      /* failed */
+    if (\cloudgrayau\cleantalk\Cleantalk::checkForm($params)){ /* passed */
+    } else { /* failed */
       $error = \cloudgrayau\cleantalk\Cleantalk::$plugin->antiSpam->error;
-      
     }
     ?>
 

@@ -49,7 +49,10 @@ class Cleantalk extends Plugin {
   }
   
   public static function checkForm($params): bool {
-    return self::$plugin->antiSpam->checkForm($params);
+    if ($this->settings->apiKey){
+      return self::$plugin->antiSpam->checkForm($params);
+    }
+    return true;
   }
   
   // Private Methods
