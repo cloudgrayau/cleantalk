@@ -16,13 +16,18 @@ class Settings extends Model {
   public bool $enableBotDetector = true;
   public bool $enableFirewall = true;
   
+  // Hidden Variables
+  // =========================================================================
+  
+  public bool $enableJS = true;
+  
   // Public Methods
   // =========================================================================
 
   public function rules(): array {
     return [
       [['apiKey'], 'string'],
-      [['enableForms','enableUserRegistration','enableComments','enableBotDetector','enableFirewall'], 'boolean']
+      [['enableForms','enableUserRegistration','enableComments','enableBotDetector','enableFirewall','enableJS'], 'boolean']
     ];
   }
   

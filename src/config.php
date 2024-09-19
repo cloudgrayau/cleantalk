@@ -19,5 +19,6 @@ return [
   'enableUserRegistration' => true,
   'enableComments' => true,
   'enableBotDetector' => true,
-  'enableFirewall' => true
+  'enableFirewall' => true,
+  'enableJS' => true
 ];
