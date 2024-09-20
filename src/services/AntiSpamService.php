@@ -176,6 +176,10 @@ class AntiSpamService extends Component {
         }
         if (!$this->checkMessage($params)){
           $comment->status = \verbb\comments\elements\Comment::STATUS_SPAM;
+          if ($comment->firstSave){
+            $e->isValid = false;
+            $comment->addError('comment', Craft::t('comments', 'Form validation failed. Marked as spam.'));
+          }
         }
       });
     }
