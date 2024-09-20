@@ -175,7 +175,7 @@ class AntiSpamService extends Component {
           $params['token'] = $_POST['ct_bot_detector_event_token'];
         }
         if (!$this->checkMessage($params)){
-          $e->isValid = false; 
+          $comment->status = \verbb\comments\elements\Comment::STATUS_SPAM;
         }
       });
     }
