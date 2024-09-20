@@ -2,6 +2,9 @@
 
 Release notes for the CleanTalk Craft CMS plugin.
 
+## 1.0.3 - 2024-09-20
+- Updated `verbb/comments` to validate on front-end edit
+
 ## 1.0.2 - 2024-03-14
 - ONLY check user registrations if Craft Pro is installed
 - Fix some typos

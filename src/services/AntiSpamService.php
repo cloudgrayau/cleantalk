@@ -161,23 +161,21 @@ class AntiSpamService extends Component {
     if (Craft::$app->plugins->isPluginEnabled('comments')){
       Event::on(\verbb\comments\elements\Comment::class, \verbb\comments\elements\Comment::EVENT_BEFORE_SAVE, function(ModelEvent $e){
         $comment = $e->sender;
-        if ($comment->firstSave){
-          $params = array();
-          if ($comment->userId){
-            $identity = Craft::$app->getUser()->getIdentity();
-            $params['name'] = $identity->fullName;
-            $params['email'] = $identity->email;
-          } else {
-            $params['name'] = $comment->name;
-            $params['email'] = $comment->email;
-          }
-          $params['message'] = $comment->getComment();
-          if (isset($_POST['ct_bot_detector_event_token'])){
-            $params['token'] = $_POST['ct_bot_detector_event_token'];
-          }
-          if (!$this->checkMessage($params)){
-            $e->isValid = false; 
-          }
+        $params = array();
+        if ($comment->userId){
+          $identity = Craft::$app->getUser()->getIdentity();
+          $params['name'] = $identity->fullName;
+          $params['email'] = $identity->email;
+        } else {
+          $params['name'] = $comment->name;
+          $params['email'] = $comment->email;
+        }
+        $params['message'] = $comment->getComment();
+        if (isset($_POST['ct_bot_detector_event_token'])){
+          $params['token'] = $_POST['ct_bot_detector_event_token'];
+        }
+        if (!$this->checkMessage($params)){
+          $e->isValid = false; 
         }
       });
     }
