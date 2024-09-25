@@ -17,6 +17,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class AntiSpamService extends Component {
   
   public const AGENT = 'Craft CMS';
+  public string $api_version = '/api3.0';
   public string $error = '';
   
   // Public Methods
@@ -43,9 +44,7 @@ class AntiSpamService extends Component {
               break;
           }
         }
-        if (isset($_POST['ct_bot_detector_event_token'])){
-          $params['token'] = $_POST['ct_bot_detector_event_token'];
-        }
+        $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
         if (!$this->checkMessage($params)){
           $e->submission->isSpam = true;
         }
@@ -59,10 +58,10 @@ class AntiSpamService extends Component {
           switch(get_class($field)){
             case 'Solspace\Freeform\Fields\Implementations\TextField':
               switch(true){
-                case (strstr($field->getHandle(), 'name')):
+                case (stristr($field->getHandle(), 'name')):
                   $params['name'][] = $field->getValue();
                   break;
-                case (strstr($field->getHandle(), 'phone')):
+                case (stristr($field->getHandle(), 'phone')):
                   $params['phone'] = $field->getValue();
                   break;
               }
@@ -75,9 +74,7 @@ class AntiSpamService extends Component {
               break;
           }
         }
-        if (isset($_POST['ct_bot_detector_event_token'])){
-          $params['token'] = $_POST['ct_bot_detector_event_token'];
-        }
+        $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
         if (!$this->checkMessage($params)){
           $form->markAsSpam('Cleantalk', $this->error);
         }
@@ -91,10 +88,10 @@ class AntiSpamService extends Component {
           switch(get_class($field)){
             case 'Solspace\ExpressForms\fields\Text':
               switch(true){
-                case (strstr($field->handle, 'name')):
+                case (stristr($field->handle, 'name')):
                   $params['name'][] = $field->getValue();
                   break;
-                case (strstr($field->handle, 'phone')):
+                case (stristr($field->handle, 'phone')):
                   $params['phone'] = $field->getValue();
                   break;
               }
@@ -107,20 +104,47 @@ class AntiSpamService extends Component {
               break;
           }
         }
-        if (isset($_POST['ct_bot_detector_event_token'])){
-          $params['token'] = $_POST['ct_bot_detector_event_token'];
-        }
+        $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
         if (!$this->checkMessage($params)){
           $form->markAsSpam();
         }
       });
     }
-    /*if (Craft::$app->plugins->isPluginEnabled('wheelform')){
-      Event::on(\wheelform\controllers\MessageController::class, \wheelform\controllers\MessageController::EVENT_BEFORE_SAVE, function($e){
-        $e->sender->returnModel()->save_entry = false;
-        $e->sender->returnModel()->send_email = false;
-      });  
-    }*/
+    if (Craft::$app->plugins->isPluginEnabled('wheelform')){
+      $plugin = Craft::$app->plugins->getPlugin('wheelform');
+      $version = (int)StringHelper::replace($plugin->getVersion(), '.', '');
+      if ($version >= 402){
+        Event::on(\wheelform\controllers\MessageController::class, \wheelform\controllers\MessageController::EVENT_BEFORE_SAVE, function($e){
+          $params = array();
+          foreach($e->message as $obj) {
+            $field = $obj->field;
+            switch($field->type){
+              case 'text':
+                switch(true){
+                  case (stristr($field->name, 'name')):
+                    $params['name'][] = $obj->value;
+                    break;
+                  case (stristr($field->name, 'phone')):
+                    $params['phone'] = $obj->value;
+                    break;
+                }
+                break;
+              case 'email':
+                $params['email'] = $obj->value;
+                break;
+              case 'textarea':
+                $params['message'][] = $obj->value;
+                break;
+            }
+          }
+          $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
+          if ($e->sendMessage){
+            $e->sendMessage = false;
+            $e->saveMessage = false;
+          }
+        });
+      }
+    }
     if (Craft::$app->plugins->isPluginEnabled('contact-form')){
       Event::on(\craft\contactform\Mailer::class, \craft\contactform\Mailer::EVENT_BEFORE_SEND, function(\craft\contactform\events\SendEvent $e){
         $submission = $e->submission;
@@ -130,9 +154,7 @@ class AntiSpamService extends Component {
           'phone' => $submission['phone'] ?? '',
           'message' => $submission['message'] ?? ''
         );
-        if (isset($_POST['ct_bot_detector_event_token'])){
-          $params['token'] = $_POST['ct_bot_detector_event_token'];
-        }
+        $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
         if (!$this->checkMessage($params)){
           $e->isSpam = true; 
         }
@@ -147,9 +169,7 @@ class AntiSpamService extends Component {
           'email' => $e->sender->email ?? '',
           'name' => $e->sender->fullName ?? ''
         );
-        if (isset($_POST['ct_bot_detector_event_token'])){
-          $params['token'] = $_POST['ct_bot_detector_event_token'];
-        }
+        $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
         if (!$this->checkUser($params)){
           $e->isValid = false;
         }
@@ -171,9 +191,7 @@ class AntiSpamService extends Component {
           $params['email'] = $comment->email;
         }
         $params['message'] = $comment->getComment();
-        if (isset($_POST['ct_bot_detector_event_token'])){
-          $params['token'] = $_POST['ct_bot_detector_event_token'];
-        }
+        $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
         if (!$this->checkMessage($params)){
           $comment->status = \verbb\comments\elements\Comment::STATUS_SPAM;
           if ($comment->firstSave){
@@ -186,10 +204,17 @@ class AntiSpamService extends Component {
   }
   
   public function checkForm($params): bool {
-    if (isset($_POST['ct_bot_detector_event_token'])){
-      $params['token'] = $_POST['ct_bot_detector_event_token'];
-    }
+    $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
     return $this->checkMessage($params);
+  }
+  
+  public function checkBotToken(): bool {
+    if (Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token')){
+      $params = [
+        'token' => Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token')
+      ];
+      return $this->checkBot($params);
+    }
   }
   
   // Private Methods
@@ -224,9 +249,9 @@ class AntiSpamService extends Component {
     if (Cleantalk::$plugin->settings->enableBotDetector){
       $params['event_token'] = $arg['token'] ?? '';
     }
-    if (isset($_POST['ctv_'])){
+    if (Craft::$app->getRequest()->getBodyParam('ctv_')){
       $dateTime = new \DateTime('now', new \DateTimeZone('Etc/GMT'));
-      $params['submit_time'] = intval($dateTime->format('U') - (int)$_POST['ctv_']);
+      $params['submit_time'] = intval($dateTime->format('U') - (int)Craft::$app->getRequest()->getBodyParam('ctv_'));
     } else {
       $params['js_on'] = $arg['js'] ?? 0;
     }
@@ -252,12 +277,22 @@ class AntiSpamService extends Component {
     if (Cleantalk::$plugin->settings->enableBotDetector){
       $params['event_token'] = $arg['token'] ?? null;
     }
-    if (isset($_POST['ctv_'])){
+    if (Craft::$app->getRequest()->getBodyParam('ctv_')){
       $dateTime = new \DateTime('now', new \DateTimeZone('Etc/GMT'));
-      $params['submit_time'] = intval($dateTime->format('U') - (int)$_POST['ctv_']);
+      $params['submit_time'] = intval($dateTime->format('U') - (int)Craft::$app->getRequest()->getBodyParam('ctv_'));
     } else {
       $params['js_on'] = $arg['js'] ?? 0;
     }
+    return $this->ctRequest($params);
+  }
+  
+  private function checkBot($arg): bool {
+    $params = array(
+      'method_name' => 'check_bot',
+      'auth_key' => Cleantalk::$plugin->settings->apiKey,
+      'agent' => self::AGENT,
+      'event_token' => $arg['token'] ?? null
+    );
     return $this->ctRequest($params);
   }
   
@@ -266,7 +301,7 @@ class AntiSpamService extends Component {
       'base_uri' => 'https://moderate.cleantalk.org',
     ]);
     try {
-      $response = $client->request('POST', '/api2.0', [
+      $response = $client->request('POST', $this->api_version, [
         'json' => $params,
         'headers' => [
           'Content-Type' => 'application/json'
