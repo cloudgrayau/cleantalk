@@ -140,14 +140,11 @@ class AntiSpamService extends Component {
                 break;
             }
           }
-          
           $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
           if (!$this->checkMessage($params)){
             $e->sendMessage = false;
             $e->saveMessage = false; /* To-do: extend to mark as spam */
           }
-          $e->sendMessage = false;
-          $e->saveMessage = false;
         });
       }
     }
@@ -200,10 +197,10 @@ class AntiSpamService extends Component {
         $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
         if (!$this->checkMessage($params)){
           $comment->status = \verbb\comments\elements\Comment::STATUS_SPAM;
-          if ($comment->firstSave){
+          /*if ($comment->firstSave){
             $e->isValid = false;
             $comment->addError('comment', Craft::t('comments', 'Form validation failed. Marked as spam.'));
-          }
+          }*/
         }
       });
     }
