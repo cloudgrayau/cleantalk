@@ -17,7 +17,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class AntiSpamService extends Component {
   
   public const AGENT = 'Craft CMS';
-  public string $api_version = '/api3.0';
+  public string $api_version = '/api2.0';
   public string $error = '';
   
   // Public Methods
@@ -127,6 +127,9 @@ class AntiSpamService extends Component {
                   case (stristr($field->name, 'phone')):
                     $params['phone'] = $obj->value;
                     break;
+                  case (stristr($field->name, 'message')):
+                    $params['message'] = $obj->value;
+                    break;
                 }
                 break;
               case 'email':
@@ -137,11 +140,14 @@ class AntiSpamService extends Component {
                 break;
             }
           }
+          
           $params['token'] = Craft::$app->getRequest()->getBodyParam('ct_bot_detector_event_token');
-          if ($e->sendMessage){
+          if (!$this->checkMessage($params)){
             $e->sendMessage = false;
-            $e->saveMessage = false;
+            $e->saveMessage = false; /* To-do: extend to mark as spam */
           }
+          $e->sendMessage = false;
+          $e->saveMessage = false;
         });
       }
     }
@@ -296,12 +302,22 @@ class AntiSpamService extends Component {
     return $this->ctRequest($params);
   }
   
+  private function sendFeedback($arg): bool {
+    $this->api_version = '/api3.0';
+    $params = array(
+      'method_name' => 'send_feedback',
+      'auth_key' => Cleantalk::$plugin->settings->apiKey,
+      'agent' => self::AGENT,
+      'event_token' => $arg['token'] ?? null
+    );
+  }
+  
   private function ctRequest($params): bool {
     $client = new Client([
       'base_uri' => 'https://moderate.cleantalk.org',
     ]);
     try {
-      $response = $client->request('POST', $this->api_version, [
+      $response = $client->request('POST', ($this->api_version == '/api3.0') ? ($this->api_version.'/'.$params['method_name']) : $this->api_version, [
         'json' => $params,
         'headers' => [
           'Content-Type' => 'application/json'

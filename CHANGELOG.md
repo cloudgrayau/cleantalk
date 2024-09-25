@@ -12,7 +12,6 @@ Release notes for the CleanTalk Craft CMS plugin.
 
 ### Changed
 
-- Updated API to `/api3.0`
 - Updated `verbb/comments` validation
 - Improved injected JavaScript
 - Numerous code improvements
