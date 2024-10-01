@@ -1,0 +1,26 @@
+{% import "_includes/forms" as forms %}
+{% import 'cloudgrayau-utils/_macros' as macros %}
+<div id="general">
+    {% namespace "settings" %}
+    
+    {{ forms.textField({
+        label: "API Key",
+        instructions: "The [CleanTalk](https://cleantalk.org/) service API key."|md,
+        name: 'apiKey',
+        value: settings['apiKey'],
+        type: 'text',
+        errors: settings.getErrors('apiKey'),
+        warning: macros.configWarning('apiKey', 'cleantalk')
+    }) }}
+    
+    {{ forms.lightswitchField({
+        label: "Enable Bot Detector",
+        instructions: "Enable bot detector script offering greater protection for spam.",
+        hints: "test",
+        name: 'enableBotDetector',
+        on: settings.enableBotDetector,
+        warning: macros.configWarning('enableBotDetector', 'cleantalk')
+    }) }}
+
+    {% endnamespace %}
+</div>

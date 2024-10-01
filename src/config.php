@@ -15,10 +15,24 @@
 
 return [
   'apiKey' => '',
-  'enableForms' => true,
-  'enableUserRegistration' => true,
-  'enableComments' => true,
+  'enableJS' => true,
   'enableBotDetector' => true,
   'enableFirewall' => true,
-  'enableJS' => true
+  'enableUserRegistration' => true,
+  'integrations' => [
+    'formie',
+    'freeform',
+    'contact-form',
+    'wheelform',
+    'express-forms',
+    'comments'
+  ],
+  'blockedEmails' => [
+  ],
+  'blockedIPs' => [
+  ],
+  'allowedEmails' => [
+  ],
+  'allowedIPs' => [
+  ]
 ];

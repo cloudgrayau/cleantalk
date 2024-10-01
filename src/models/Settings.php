@@ -1,33 +1,47 @@
 <?php
 namespace cloudgrayau\cleantalk\models;
 
-use Craft;
 use craft\base\Model;
+use craft\validators\ArrayValidator;
 
 class Settings extends Model {
   
-  // Editable Variables
-  // =========================================================================
+  /* READ ONLY */
+  public bool $enableJS = true;
   
+  /* GENERAL */
   public string $apiKey = '';
-  public bool $enableForms = true;
-  public bool $enableUserRegistration = true;
-  public bool $enableComments = true;
   public bool $enableBotDetector = true;
+  
+  /* FIREWALL */
   public bool $enableFirewall = true;
   
-  // Hidden Variables
-  // =========================================================================
+  /* INTEGRATIONS */
+  public bool $enableUserRegistration = true;
+  public array $integrations = [
+    'formie',
+    'freeform',
+    'contact-form',
+    'wheelform',
+    'express-forms',
+    'comments'
+  ];
   
-  public bool $enableJS = true;
+  /* MANUAL */
+  public array $blockedEmails = [];
+  public array $blockedIPs = [];
+  public array $allowedEmails = [];
+  public array $allowedIPs = [];
   
   // Public Methods
   // =========================================================================
 
   public function rules(): array {
     return [
+      [['apiKey'], 'required'],
       [['apiKey'], 'string'],
-      [['enableForms','enableUserRegistration','enableComments','enableBotDetector','enableFirewall','enableJS'], 'boolean']
+      [['enableUserRegistration','enableBotDetector','enableFirewall','enableJS'], 'boolean'],
+      [['integrations','blockedEmails','blockedIPs','allowedEmails','allowedIPs'], ArrayValidator::class],
     ];
   }
   

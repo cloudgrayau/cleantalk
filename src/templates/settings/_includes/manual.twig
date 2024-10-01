@@ -1,0 +1,83 @@
+{% import "_includes/forms" as forms %}
+{% import 'cloudgrayau-utils/_macros' as macros %}
+<div id="manual" class="hidden">
+    {% namespace "settings" %}
+    
+    {{ forms.editableTableField({
+        label: 'Blocked Emails',
+        instructions: 'Block specific email addresses.',
+        name: 'blockedEmails',
+        addRowLabel: 'Add an email',
+        allowAdd: true,
+        allowDelete: true,
+        allowReorder: false,
+        cols: [
+            {
+                type: "singleline",
+                width: "100%",
+                code: true,
+            },
+        ],
+        rows: settings['blockedEmails'],
+        warning: macros.configWarning('blockedEmails', 'cleantalk')
+    }) }}
+    
+    {{ forms.editableTableField({
+        label: 'Blocked IPs',
+        instructions: 'Block specific IP addresses.',
+        name: 'blockedIPs',
+        addRowLabel: 'Add an IP',
+        allowAdd: true,
+        allowDelete: true,
+        allowReorder: false,
+        cols: [
+            {
+                type: "singleline",
+                width: "100%",
+                code: true,
+            },
+        ],
+        rows: settings['blockedIPs'],
+        warning: macros.configWarning('blockedIPs', 'cleantalk')
+    }) }}
+    
+    {{ forms.editableTableField({
+        label: 'Allowed Emails',
+        instructions: 'Allow specific email addresses.',
+        name: 'allowedEmails',
+        addRowLabel: 'Add an email',
+        allowAdd: true,
+        allowDelete: true,
+        allowReorder: false,
+        cols: [
+            {
+                type: "singleline",
+                width: "100%",
+                code: true,
+            },
+        ],
+        rows: settings['allowedEmails'],
+        warning: macros.configWarning('allowedEmails', 'cleantalk')
+    }) }}
+    
+    {{ forms.editableTableField({
+        label: 'Allowed IPs',
+        instructions: 'Allow specific IP addresses.',
+        name: 'allowedIPs',
+        addRowLabel: 'Add an IP',
+        allowAdd: true,
+        allowDelete: true,
+        allowReorder: true,
+        cols: [
+            {
+                type: "singleline",
+                width: "100%",
+                code: true,
+            },
+        ],
+        rows: settings['allowedIPs'],
+        warning: macros.configWarning('allowedIPs', 'cleantalk')
+    }) }}
+
+    {% endnamespace %}
+</div>

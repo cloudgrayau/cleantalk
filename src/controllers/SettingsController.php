@@ -2,7 +2,7 @@
 namespace cloudgrayau\cleantalk\controllers;
 
 use cloudgrayau\cleantalk\Cleantalk;
-use cloudgrayau\cleantalk\models\Settings;
+use cloudgrayau\cleantalk\helpers\SettingsHelper;
 
 use Craft;
 use craft\web\Controller;
@@ -18,6 +18,9 @@ class SettingsController extends Controller {
     $settings = Cleantalk::$plugin->getSettings();
     return $this->renderTemplate('cleantalk/settings', [
       'settings' => $settings,
+      'helper' => [
+        'integrations' => SettingsHelper::getIntegrations()
+      ]
     ]);
   }
 

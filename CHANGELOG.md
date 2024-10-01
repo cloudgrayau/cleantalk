@@ -6,13 +6,14 @@ Release notes for the CleanTalk Craft CMS plugin.
 
 ### Added
 
-- Added `xpertbot/craft-wheelform` (>= v4.0.2) form validation
-- Added a `CheckBotToken()` method
-- Added bot detector form exclusion
+- Added `xpertbot/craft-wheelform` (>= v4.0.2) form integration
+- Added ability to enable OR disable specific integrations
+- Added manual block/allow settings based on email or IP address
+- Added bot detector form exclusions
 
 ### Changed
 
-- Updated `verbb/comments` validation
+- Improved all integration validations
 - Improved injected JavaScript
 - Numerous code improvements
 

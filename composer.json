@@ -9,7 +9,8 @@
         "craftcms",
         "craft-plugin",
         "cleantalk",
-        "anti-spam"
+        "anti-spam",
+        "security"
     ],
     "support": {
         "docs": "https://github.com/cloudgrayau/cleantalk",
