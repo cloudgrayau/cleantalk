@@ -31,9 +31,9 @@ Protects user registrations from spam.
 Protects form submissions from spam. The current form integrations are protected:
 
 **✓ Formie** - [https://plugins.craftcms.com/formie](https://plugins.craftcms.com/formie)  
-**✓ Freeform** - [https://plugins.craftcms.com/freeform](https://plugins.craftcms.com/freeform)
-**✓ Contact Form** - [https://plugins.craftcms.com/contact-form](https://plugins.craftcms.com/contact-form) 
-**✓ Wheel Form** (> 4.0.2) - [https://plugins.craftcms.com/wheelform](https://plugins.craftcms.com/wheelform) 
+**✓ Freeform** - [https://plugins.craftcms.com/freeform](https://plugins.craftcms.com/freeform)  
+**✓ Contact Form** - [https://plugins.craftcms.com/contact-form](https://plugins.craftcms.com/contact-form)  
+**✓ Wheel Form** (> 4.0.2) - [https://plugins.craftcms.com/wheelform](https://plugins.craftcms.com/wheelform)  
 **✓ Express Forms** (no longer maintained) - [https://plugins.craftcms.com/express-forms](https://plugins.craftcms.com/express-forms)  
 **✓ Custom Forms** - requires custom programming
 

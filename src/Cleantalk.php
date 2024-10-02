@@ -50,7 +50,7 @@ class Cleantalk extends Plugin {
     ];
   }
   
-  public static function checkSpam($params): bool {
+  public static function checkSpam(array $params): bool {
     if (self::$plugin->settings->apiKey){
       return self::$plugin->antiSpam->checkSpam($params);
     }

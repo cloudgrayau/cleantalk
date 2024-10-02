@@ -43,7 +43,7 @@ class SettingsHelper {
     return self::$integrationList;
   }
   
-  public static function mapSettings($n): string {
+  public static function mapSettings(array $n): string {
     return (isset($n[0])) ? $n[0] : '';
   }
   

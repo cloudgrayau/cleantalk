@@ -130,7 +130,7 @@ class AntiSpamService extends Component {
       'agent' => self::AGENT,
       'sender_email' => $arg['email'],
       'sender_nickname' => $arg['name'],
-      'sender_ip' => Craft::$app->request->getUserIP(),
+      'sender_ip' => $arg['ip'],
       'js_on' => 1,
       'sender_info' => json_encode([
         'user_agent' => Craft::$app->request->getUserAgent() ?? '',
