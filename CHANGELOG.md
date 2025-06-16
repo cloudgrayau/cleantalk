@@ -2,6 +2,12 @@
 
 Release notes for the CleanTalk Craft CMS plugin.
 
+## 1.1.1 - 2025-06-16
+
+### Changed
+
+- Fixed possible JavaScript error
+
 ## 1.1.0 - 2024-09-25
 
 ### Added
