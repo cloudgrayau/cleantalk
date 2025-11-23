@@ -6,6 +6,7 @@ use cloudgrayau\cleantalk\helpers\SettingsHelper;
 
 use Craft;
 use craft\base\Component;
+use craft\helpers\App;
 use craft\helpers\StringHelper;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -96,7 +97,7 @@ class AntiSpamService extends Component {
   private function checkMessage(array $arg): bool {
     $params = [
       'method_name' => 'check_message',
-      'auth_key' => Cleantalk::$plugin->settings->apiKey,
+      'auth_key' => App::parseEnv(Cleantalk::$plugin->settings->apiKey),
       'agent' => self::AGENT,
       'sender_email' => $arg['email'],
       'sender_nickname' => $arg['name'],

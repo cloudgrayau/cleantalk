@@ -18,7 +18,7 @@ class ContactFormIntegration {
       if (!Cleantalk::$plugin->antiSpam->checkSpam($params)){
         $e->isSpam = true; 
       }
-    });
+    }, append: false);
   }
   
 }

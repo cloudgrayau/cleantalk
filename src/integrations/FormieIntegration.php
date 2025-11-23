@@ -14,15 +14,19 @@ class FormieIntegration {
       foreach($e->submission->form->getCustomFields() as $field){
         switch(get_class($field)){
           case 'verbb\formie\fields\formfields\Name':
+          case 'verbb\formie\fields\Name':
             $params['name'] = (string)$e->submission->getFieldValue($field->handle);
             break;
           case 'verbb\formie\fields\formfields\Email':
+          case 'verbb\formie\fields\Email':
             $params['email'] = (string)$e->submission->getFieldValue($field->handle);
             break;
           case 'verbb\formie\fields\formfields\Phone':
+          case 'verbb\formie\fields\Phone':
             $params['phone'] = (string)$e->submission->getFieldValue($field->handle);
             break;
           case 'verbb\formie\fields\formfields\MultiLineText':
+          case 'verbb\formie\fields\MultiLineText':
             $params['message'][] = (string)$e->submission->getFieldValue($field->handle);
             break;
         }
